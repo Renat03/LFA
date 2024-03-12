@@ -22,8 +22,8 @@ class FiniteAutomaton:
     def to_regular_grammar(self):
         from grammar import Grammar
         vn = [state for state in self.states if state != 'X']
-        vt = self.alphabet  # Terminals
-        p = {state: [] for state in vn}  # Production rules
+        vt = self.alphabet  
+        p = {state: [] for state in vn}  
         s = self.start
 
         for state, transitions in self.transition_function.items():
@@ -52,13 +52,17 @@ class FiniteAutomaton:
         states_to_process = [initial_dfa_state]
         dfa_accept_states = set()
 
+        state_names = {initial_dfa_state: '_'.join(sorted(initial_dfa_state)) or 'empty'}
+
         while states_to_process:
             current_dfa_state = states_to_process.pop()
             for symbol in self.alphabet:
                 next_states_set = frozenset(
-                    sum([self.transition_function[nfa_state].get(symbol, []) for nfa_state in current_dfa_state], [])
+                    sum([self.transition_function.get(nfa_state, {}).get(symbol, []) for nfa_state in current_dfa_state], [])
                 )
                 if next_states_set:
+                    if next_states_set not in state_names:
+                        state_names[next_states_set] = '_'.join(sorted(next_states_set)) or 'empty'
                     dfa_transitions[current_dfa_state][symbol] = next_states_set
                     if next_states_set not in dfa_states:
                         dfa_states.add(next_states_set)
@@ -66,7 +70,6 @@ class FiniteAutomaton:
                     if any(state in self.accept for state in next_states_set):
                         dfa_accept_states.add(next_states_set)
 
-        state_names = {state: 'q{}'.format(i) for i, state in enumerate(dfa_states)}
         dfa_start = state_names[initial_dfa_state]
         dfa_states_named = [state_names[state] for state in dfa_states]
         dfa_accept_named = [state_names[state] for state in dfa_accept_states]
@@ -75,10 +78,11 @@ class FiniteAutomaton:
         for state, transitions in dfa_transitions.items():
             transition_dict = {}
             for symbol, next_state_set in transitions.items():
-                transition_dict[symbol] = [state_names[next_state_set]]
+                transition_dict[symbol] = [state_names[next_state_set]]  
             dfa_transitions_named[state_names[state]] = transition_dict
 
         return FiniteAutomaton(dfa_states_named, self.alphabet, dfa_transitions_named, dfa_start, dfa_accept_named)
+
 
     def visualize(self, filename='finite_automaton'):
         dot = Digraph()
