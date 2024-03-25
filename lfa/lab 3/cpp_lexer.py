@@ -4,7 +4,7 @@ from prettytable import PrettyTable
 
 TOKEN_TYPES = [
     ('NUMBER', r'\b\d+(\.\d*)?([eE][+-]?\d+)?\b'),
-    ('KEYWORD', r'\b(auto|const|double|float|int|short|struct|break|continue|else|for|long|switch|void|case|default|char|do|if|return|static|while|namespace|using|bool|true|false|class|public|private|protected|this|throw|try|catch)\b'),
+    ('KEYWORD', r'\b(auto|const|double|float|int|short|struct|break|continue|else|for|long|switch|void|case|default|char|do|if|return|static|while|namespace|using|bool|true|false|class|public|private|protected|this|throw|try|catch|cout|cin)\b'),
     ('IDENTIFIER', r'[a-zA-Z_]\w*'),
     ('LEFT_PAREN', r'\('),
     ('RIGHT_PAREN', r'\)'),
@@ -67,6 +67,7 @@ int main() {
 """
 
 tokens = tokenize(cpp_code)
+
 pt = PrettyTable()
 pt.field_names = ["Token Type", "Token Value"]
 
