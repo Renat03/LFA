@@ -102,8 +102,8 @@ def describe_regex_processing(regex):
 
 
 
-#regex = "(a|b)(c|d)E+G?"
-regex = "(P|Q|R|S)T(U|V|W|X)*Z+"
+regex = "(a|b)(c|d)E+G?"
+#regex = "(P|Q|R|S)T(U|V|W|X)*Z+"
 #regex = "1(0|1)*2(3|4)>5<36"
 sequences = generate_sequences_from_regex(regex)
 description = describe_regex_processing(regex)
