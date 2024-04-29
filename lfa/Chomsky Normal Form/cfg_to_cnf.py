@@ -129,25 +129,25 @@ class TestGrammarMethods(unittest.TestCase):
             for prod in values:
                 self.assertTrue(len(prod) <= 2)
 
-#if __name__ == '__main__':
-#    unittest.main()
+if __name__ == '__main__':
+    unittest.main()
 
-non_terminals = ['S', 'A', 'B', 'D']
-terminals = ['a', 'b', 'd']
-productions = {
-    'S': ['dB', 'AB'],
-    'A': ['d', 'dS', 'ε', 'aAaAb'],
-    'B': ['a', 'aS', 'A'],
-    'D': ['Aba']
-}
-start_symbol = 'S'
+#non_terminals = ['S', 'A', 'B', 'D']
+#terminals = ['a', 'b', 'd']
+#productions = {
+    #'S': ['dB', 'AB'],
+    #'A': ['d', 'dS', 'ε', 'aAaAb'],
+    #'B': ['a', 'aS', 'A'],
+    #'D': ['Aba']
+#}
+#start_symbol = 'S'
 
-grammar = Grammar(non_terminals, terminals, productions, start_symbol)
-grammar.convert_to_cnf()
+#grammar = Grammar(non_terminals, terminals, productions, start_symbol)
+#grammar.convert_to_cnf()
 
-print('Non-terminals:', grammar.non_terminals)
-print('Terminals:', grammar.terminals)
-print('Productions:')
-for key, value in grammar.productions.items():
-    print(f'{key} -> {value}')
-print('Start Symbol: ', grammar.start_symbol, '\n')
+#print('Non-terminals:', grammar.non_terminals)
+#print('Terminals:', grammar.terminals)
+#print('Productions:')
+#for key, value in grammar.productions.items():
+    #print(f'{key} -> {value}')
+#print('Start Symbol: ', grammar.start_symbol, '\n')
